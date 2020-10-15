@@ -110,8 +110,8 @@ if (isset($_POST['submit'])) {
 								"<td>".''.$row["tag_name"].''."</td>".
 									"<td>".
 										'<!-- Icons -->
-										 <a href="#" title="Edit"><img src="resources/images/icons/pencil.png" alt="Edit" /></a>
-										 <a href="#" title="Delete"><img src="resources/images/icons/cross.png" alt="Delete" /></a>' 
+										<a href="updatetag.php?rn='.$row["tag_id"].'" title="Edit"><img src="resources/images/icons/pencil.png" alt="Edit" /></a>
+										<a href="deletetag.php?rn='.$row["tag_id"].'" title="Delete"><img src="resources/images/icons/cross.png" alt="Delete" /></a>' 
 										 
 									."</td>".
 								'</tr>';

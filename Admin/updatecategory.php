@@ -12,18 +12,31 @@
 require 'header.php';
 require 'aside.php';
 require 'config.php';
-$sucess='';
+$tags=array();
+$sucess='';$tagname='';
 $table='';
+$desc='';$error=array();
+$pid=$_GET['rn'];
+$sql = "SELECT * FROM category where category_id=$pid";
+    $result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $name=$row['category_name']; 
+	}
+}
 if (isset($_POST['submit'])) {
-    $productname= isset($_POST['pname'])?$_POST['pname']:'';
-    $sql = "INSERT INTO category(`category_name`)
-    VALUES ('".$productname."')";
+$productname= isset($_POST['pname'])?$_POST['pname']:'';
+$sql = "UPDATE category SET `category_name`='$productname'
+     WHERE category_id= '$pid' ";
     if ($conn->query($sql) === true) {
-        $sucess.= "Product Added Sucessfull";
+        echo "Updated successfully";
+        echo '<script>window.location="categories.php"</script>';
     } else {
-            $sucess.= $conn->error;
+        $errors[] = array('input'=>'form','msg'=>$conn->error);
     }
 }
+//echo '<script>alert("'.$desc.'")</script>';
 ?>;
 <div id="main-content"> <!-- Main Content Section with everything -->
     <noscript> <!-- Show a notification if the user has disabled javascript -->
@@ -35,7 +48,7 @@ if (isset($_POST['submit'])) {
     </noscript>
 			
 			<!-- Page Head -->
-			<h2>Welcome John</h2>
+			<h2>Welcome Admin</h2>
 			<p id="page-intro">What would you like to do?</p>
 				
 			</ul><!-- End .shortcut-buttons-set -->
@@ -49,8 +62,7 @@ if (isset($_POST['submit'])) {
 					<h3>Products</h3>
 					
 					<ul class="content-box-tabs">
-						<li><a href="#tab1" class="default-tab">Manage</a></li> <!-- href must be unique and match the id of target div -->
-						<li><a href="#tab2">Add</a></li>
+						<li><a href="#tab2" class="default-tab">Update</a></li>
 					</ul>
 					
 					<div class="clear"></div>
@@ -59,81 +71,16 @@ if (isset($_POST['submit'])) {
 				
 				<div class="content-box-content">
 					
-					<div class="tab-content default-tab" id="tab1"> <!-- This is the target div. id must match the href of this div's tab -->
-						
-						
-						<table>
-							
-							<thead>
-								<tr>
-								   <th>Category Id</th>
-								   <th>Category Name</th>
-								   <th>Action</th>
-								</tr>
-								
-							</thead>
-						 
-							<tfoot>
-								<tr>
-									<td colspan="6">
-										<div class="bulk-actions align-left">
-											<select name="dropdown">
-												<option value="option1">Choose an action...</option>
-												<option value="option2">Edit</option>
-												<option value="option3">Delete</option>
-											</select>
-											<a class="button" href="#">Apply to selected</a>
-										</div>
-										
-										<div class="pagination">
-											<a href="#" title="First Page">&laquo; First</a><a href="#" title="Previous Page">&laquo; Previous</a>
-											<a href="#" class="number" title="1">1</a>
-											<a href="#" class="number" title="2">2</a>
-											<a href="#" class="number current" title="3">3</a>
-											<a href="#" class="number" title="4">4</a>
-											<a href="#" title="Next Page">Next &raquo;</a><a href="#" title="Last Page">Last &raquo;</a>
-										</div> <!-- End .pagination -->
-										<div class="clear"></div>
-									</td>
-								</tr>
-							</tfoot>
-						 
-							<tbody>
-								<?php
-								$sql = "SELECT * FROM category ";
-									$result = $conn->query($sql);
-
-								if ($result->num_rows > 0) {
-									while ($row = $result->fetch_assoc()) {
-							$table.='<tr>'.
-								"<td>".''.$row["category_id"].''."</td>".
-								"<td>".''.$row["category_name"].''."</td>".
-									"<td>".
-										'<!-- Icons -->
-										<a href="updatecategory.php?rn='.$row["category_id"].'" title="Edit"><img src="resources/images/icons/pencil.png" alt="Edit" /></a>
-										<a href="deletecategory.php?rn='.$row["category_id"].'" title="Delete"><img src="resources/images/icons/cross.png" alt="Delete" /></a>' 
-										 
-									."</td>".
-								'</tr>';
-									}
-								}
-								echo $table;
-								?>
-							</tbody>
-							
-						</table>
-						
-					</div> <!-- End #tab1 -->
 					
-					<div class="tab-content" id="tab2">
+					<div class="tab-content default-tab" id="tab2">
 					
-						<form action="categories.php" method="post" enctype="multipart/form-data">
+                    <form method="post" enctype="multipart/form-data">
 							
 							<fieldset> <!-- Set class to "column-left" or "column-right" on fieldsets to divide the form into columns -->
 								
 								<p>
 									<label>Name</label>
-									<input class="text-input medium-input" type="text" id="large-input" name="pname" />
+									<input class="text-input medium-input" type="text" id="large-input" name="pname"  value=<?php echo "'$name'" ?>/>
 								</p>
 								
 								<p>
@@ -184,4 +131,7 @@ if (isset($_POST['submit'])) {
 			</div>
 			
 			<!-- End Notifications -->
+			<div>
+				<?php  echo $sucess ?>;
+			</div>
 <?php require 'footer.php' ?>
