@@ -3,7 +3,7 @@
 			
 			<?php 
 				$filename=basename($_SERVER['REQUEST_URI']);
-				$productmenu=array('products.php','categories.php','tags.php');
+				$productmenu=array('products.php','categories.php','tags.php','color.php');
 				$usermenu=array('adduser.php','manageuser.php');
 				$order=array('manageorder.php');
 			?>
@@ -29,7 +29,8 @@
 					<ul>
 						<li><a <?php if($filename=="products.php"):?>class="current"<?php endif;?> href="products.php">Add Products</a></li>
                         <li><a <?php if($filename=="categories.php"):?>class="current"<?php endif;?>href="categories.php">Manage Categories</a></li>
-                        <li><a <?php if($filename=="tags.php"):?>class="current"<?php endif;?>href="tags.php">Manage Tags</a></li>
+						<li><a <?php if($filename=="tags.php"):?>class="current"<?php endif;?>href="tags.php">Manage Tags</a></li>
+						<li><a <?php if($filename=="color.php"):?>class="current"<?php endif;?>href="color.php">Manage color</a></li>	
 					</ul>
 				</li>
 				
