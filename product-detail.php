@@ -1,10 +1,29 @@
+<?php
+/**
+ * MyClass File Doc Comment
+ * php version 7.2.10
+ *
+ * @category MyClass
+ * @package  MyPackage
+ * @author   My Name <my.name@example.com>
+ * @license  http://www.gnu.org/copyleft/gpl.html GNU General Public License
+ * @link     http://www.hashbangcode.com/
+ */
+session_start();
+$product='';
+$quickview='';
+require 'config2.php';
+// print_r($_SESSION);
+// session_destroy();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">    
-    <title>Daily Shop | Checkout Page</title>
+    <title>Daily Shop | Product Detail</title>
     
     <!-- Font awesome -->
     <link href="css/font-awesome.css" rel="stylesheet">
@@ -41,16 +60,16 @@
 
   </head>
   <body>  
-   <!-- wpf loader Two -->
+    <!-- wpf loader Two -->
     <div id="wpf-loader-two">          
       <div class="wpf-loader-two-inner">
         <span>Loading</span>
       </div>
     </div> 
     <!-- / wpf loader Two -->       
- <!-- SCROLL TOP BUTTON -->
+    <!-- SCROLL TOP BUTTON -->
     <a class="scrollToTop" href="#"><i class="fa fa-chevron-up"></i></a>
-  <!-- END SCROLL TOP BUTTON -->
+    <!-- END SCROLL TOP BUTTON -->
 
 
   <!-- Start header section -->
@@ -103,7 +122,7 @@
                 <ul class="aa-head-top-nav-right">
                   <li><a href="account.html">My Account</a></li>
                   <li class="hidden-xs"><a href="wishlist.html">Wishlist</a></li>
-                  <li class="hidden-xs"><a href="cart.html">My Cart</a></li>
+                  <li class="hidden-xs"><a href="cart.php">My Cart</a></li>
                   <li class="hidden-xs"><a href="checkout.html">Checkout</a></li>
                   <li><a href="" data-toggle="modal" data-target="#login-modal">Login</a></li>
                 </ul>
@@ -200,7 +219,7 @@
               <span class="icon-bar"></span>
             </button>          
           </div>
-          <div class="navbar-collapse collapse">
+            <div class="navbar-collapse collapse">
             <!-- Left nav -->
             <ul class="nav navbar-nav">
               <li><a href="index.html">Home</a></li>
@@ -295,7 +314,7 @@
                 </ul>
               </li>
               <li><a href="#">Furniture</a></li>            
-               <li><a href="blog-archive.html">Blog <span class="caret"></span></a>
+              <li><a href="blog-archive.html">Blog <span class="caret"></span></a>
                 <ul class="dropdown-menu">                
                   <li><a href="blog-archive.html">Blog Style 1</a></li>
                   <li><a href="blog-archive-2.html">Blog Style 2</a></li>
@@ -321,14 +340,15 @@
  
   <!-- catg header banner section -->
   <section id="aa-catg-head-banner">
-    <img src="img/fashion/fashion-header-bg-8.jpg" alt="fashion img">
-    <div class="aa-catg-head-banner-area">
+   <img src="img/fashion/fashion-header-bg-8.jpg" alt="fashion img">
+   <div class="aa-catg-head-banner-area">
      <div class="container">
       <div class="aa-catg-head-banner-content">
-        <h2>Checkout Page</h2>
+        <h2>T-Shirt</h2>
         <ol class="breadcrumb">
-          <li><a href="index.html">Home</a></li>                   
-          <li class="active">Checkout</li>
+          <li><a href="index.html">Home</a></li>         
+          <li><a href="#">Product</a></li>
+          <li class="active">T-shirt</li>
         </ol>
       </div>
      </div>
@@ -336,323 +356,330 @@
   </section>
   <!-- / catg header banner section -->
 
- <!-- Cart view section -->
- <section id="checkout">
-   <div class="container">
-     <div class="row">
-       <div class="col-md-12">
-        <div class="checkout-area">
-          <form action="">
-            <div class="row">
-              <div class="col-md-8">
-                <div class="checkout-left">
-                  <div class="panel-group" id="accordion">
-                    <!-- Coupon section -->
-                    <div class="panel panel-default aa-checkout-coupon">
-                      <div class="panel-heading">
-                        <h4 class="panel-title">
-                          <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                            Have a Coupon?
+  <!-- product category -->
+  <section id="aa-product-details">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="aa-product-details-area">
+            <div class="aa-product-details-content">
+            <?php
+                $sql = "SELECT * FROM products ";
+								$result = $conn->query($sql);
+                ?>
+                <?php	if ($result->num_rows > 0) : ?>
+							  <?php	while ($row = $result->fetch_assoc()): ?>
+                <?php $oldp=$row["price"]*2; 
+
+                    $name=$row["name"];
+                    $price=$row["price"];
+                    $image=$row["image"];
+                ?>
+                <?php endwhile; ?>
+              <?php endif; ?>  
+              <div class="row">
+                <!-- Modal view slider -->
+                <div class="col-md-5 col-sm-5 col-xs-12">                              
+                  <div class="aa-product-view-slider">                                
+                    <div id="demo-1" class="simpleLens-gallery-container">
+                      <div class="simpleLens-container">
+                        <div class="simpleLens-big-image-container"><a data-lens-image="Admin/<?php echo $image ?>" class="simpleLens-lens-image"><img src="Admin/<?php echo $image ?>" class="simpleLens-big-image"></a></div>
+                      </div>
+                      <!-- <div class="simpleLens-thumbnails-container">
+                          <a data-big-image="Admin/<?php echo $image ?>" data-lens-image="Admin/<?php echo $image ?>" class="simpleLens-thumbnail-wrapper" href="#">
+                            <img src="Admin/<?php echo $image ?>">
+                          </a>                                    
+                          <a data-big-image="Admin/<?php echo $image ?>" data-lens-image="Admin/<?php echo $image  ?>" class="simpleLens-thumbnail-wrapper" href="#">
+                            <img src="Admin/<?php echo $image ?>">
                           </a>
-                        </h4>
-                      </div>
-                      <div id="collapseOne" class="panel-collapse collapse in">
-                        <div class="panel-body">
-                          <input type="text" placeholder="Coupon Code" class="aa-coupon-code">
-                          <input type="submit" value="Apply Coupon" class="aa-browse-btn">
-                        </div>
-                      </div>
+                          <a data-big-image="Admin/<?php echo $image ?>" data-lens-image="Admin/<?php echo $image ?>" class="simpleLens-thumbnail-wrapper" href="#">
+                            <img src="Admin/<?php echo $image ?>">
+                          </a>
+                      </div> -->
                     </div>
-                    <!-- Login section -->
-                    <div class="panel panel-default aa-checkout-login">
-                      <div class="panel-heading">
-                        <h4 class="panel-title">
-                          <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                            Client Login 
-                          </a>
-                        </h4>
-                      </div>
-                      <div id="collapseTwo" class="panel-collapse collapse">
-                        <div class="panel-body">
-                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat voluptatibus modi pariatur qui reprehenderit asperiores fugiat deleniti praesentium enim incidunt.</p>
-                          <input type="text" placeholder="Username or email">
-                          <input type="password" placeholder="Password">
-                          <button type="submit" class="aa-browse-btn">Login</button>
-                          <label for="rememberme"><input type="checkbox" id="rememberme"> Remember me </label>
-                          <p class="aa-lost-password"><a href="#">Lost your password?</a></p>
-                        </div>
-                      </div>
+                  </div>
+                </div>
+                <!-- Modal view content -->
+                <div class="col-md-7 col-sm-7 col-xs-12">
+                  <div class="aa-product-view-content">
+                    <h3><?php echo $price ?></h3>
+                    <div class="aa-price-block">
+                      <span class="aa-product-view-price"><?php echo $price ?></span>
+                      <p class="aa-product-avilability">Avilability: <span>In stock</span></p>
                     </div>
-                    <!-- Billing Details -->
-                    <div class="panel panel-default aa-checkout-billaddress">
-                      <div class="panel-heading">
-                        <h4 class="panel-title">
-                          <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-                            Billing Details
-                          </a>
-                        </h4>
-                      </div>
-                      <div id="collapseThree" class="panel-collapse collapse">
-                        <div class="panel-body">
-                          <div class="row">
-                            <div class="col-md-6">
-                              <div class="aa-checkout-single-bill">
-                                <input type="text" placeholder="First Name*">
-                              </div>                             
-                            </div>
-                            <div class="col-md-6">
-                              <div class="aa-checkout-single-bill">
-                                <input type="text" placeholder="Last Name*">
-                              </div>
-                            </div>
-                          </div> 
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="aa-checkout-single-bill">
-                                <input type="text" placeholder="Company name">
-                              </div>                             
-                            </div>                            
-                          </div>  
-                          <div class="row">
-                            <div class="col-md-6">
-                              <div class="aa-checkout-single-bill">
-                                <input type="email" placeholder="Email Address*">
-                              </div>                             
-                            </div>
-                            <div class="col-md-6">
-                              <div class="aa-checkout-single-bill">
-                                <input type="tel" placeholder="Phone*">
-                              </div>
-                            </div>
-                          </div> 
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="aa-checkout-single-bill">
-                                <textarea cols="8" rows="3">Address*</textarea>
-                              </div>                             
-                            </div>                            
-                          </div>   
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="aa-checkout-single-bill">
-                                <select>
-                                  <option value="0">Select Your Country</option>
-                                  <option value="1">Australia</option>
-                                  <option value="2">Afganistan</option>
-                                  <option value="3">Bangladesh</option>
-                                  <option value="4">Belgium</option>
-                                  <option value="5">Brazil</option>
-                                  <option value="6">Canada</option>
-                                  <option value="7">China</option>
-                                  <option value="8">Denmark</option>
-                                  <option value="9">Egypt</option>
-                                  <option value="10">India</option>
-                                  <option value="11">Iran</option>
-                                  <option value="12">Israel</option>
-                                  <option value="13">Mexico</option>
-                                  <option value="14">UAE</option>
-                                  <option value="15">UK</option>
-                                  <option value="16">USA</option>
-                                </select>
-                              </div>                             
-                            </div>                            
-                          </div>
-                          <div class="row">
-                            <div class="col-md-6">
-                              <div class="aa-checkout-single-bill">
-                                <input type="text" placeholder="Appartment, Suite etc.">
-                              </div>                             
-                            </div>
-                            <div class="col-md-6">
-                              <div class="aa-checkout-single-bill">
-                                <input type="text" placeholder="City / Town*">
-                              </div>
-                            </div>
-                          </div>   
-                          <div class="row">
-                            <div class="col-md-6">
-                              <div class="aa-checkout-single-bill">
-                                <input type="text" placeholder="District*">
-                              </div>                             
-                            </div>
-                            <div class="col-md-6">
-                              <div class="aa-checkout-single-bill">
-                                <input type="text" placeholder="Postcode / ZIP*">
-                              </div>
-                            </div>
-                          </div>                                    
-                        </div>
-                      </div>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis animi, veritatis quae repudiandae quod nulla porro quidem, itaque quis quaerat!</p>
+                    <h4>Size</h4>
+    
+                    <h4>Color</h4>
+                    <div class="aa-color-tag">
+                      <a href="#" class="aa-color-green"></a>
+                      <a href="#" class="aa-color-yellow"></a>
+                      <a href="#" class="aa-color-pink"></a>                      
+                      <a href="#" class="aa-color-black"></a>
+                      <a href="#" class="aa-color-white"></a>                      
                     </div>
-                    <!-- Shipping Address -->
-                    <div class="panel panel-default aa-checkout-billaddress">
-                      <div class="panel-heading">
-                        <h4 class="panel-title">
-                          <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
-                            Shippping Address
-                          </a>
-                        </h4>
-                      </div>
-                      <div id="collapseFour" class="panel-collapse collapse">
-                        <div class="panel-body">
-                         <div class="row">
-                            <div class="col-md-6">
-                              <div class="aa-checkout-single-bill">
-                                <input type="text" placeholder="First Name*">
-                              </div>                             
-                            </div>
-                            <div class="col-md-6">
-                              <div class="aa-checkout-single-bill">
-                                <input type="text" placeholder="Last Name*">
-                              </div>
-                            </div>
-                          </div> 
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="aa-checkout-single-bill">
-                                <input type="text" placeholder="Company name">
-                              </div>                             
-                            </div>                            
-                          </div>  
-                          <div class="row">
-                            <div class="col-md-6">
-                              <div class="aa-checkout-single-bill">
-                                <input type="email" placeholder="Email Address*">
-                              </div>                             
-                            </div>
-                            <div class="col-md-6">
-                              <div class="aa-checkout-single-bill">
-                                <input type="tel" placeholder="Phone*">
-                              </div>
-                            </div>
-                          </div> 
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="aa-checkout-single-bill">
-                                <textarea cols="8" rows="3">Address*</textarea>
-                              </div>                             
-                            </div>                            
-                          </div>   
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="aa-checkout-single-bill">
-                                <select>
-                                  <option value="0">Select Your Country</option>
-                                  <option value="1">Australia</option>
-                                  <option value="2">Afganistan</option>
-                                  <option value="3">Bangladesh</option>
-                                  <option value="4">Belgium</option>
-                                  <option value="5">Brazil</option>
-                                  <option value="6">Canada</option>
-                                  <option value="7">China</option>
-                                  <option value="8">Denmark</option>
-                                  <option value="9">Egypt</option>
-                                  <option value="10">India</option>
-                                  <option value="11">Iran</option>
-                                  <option value="12">Israel</option>
-                                  <option value="13">Mexico</option>
-                                  <option value="14">UAE</option>
-                                  <option value="15">UK</option>
-                                  <option value="16">USA</option>
-                                </select>
-                              </div>                             
-                            </div>                            
-                          </div>
-                          <div class="row">
-                            <div class="col-md-6">
-                              <div class="aa-checkout-single-bill">
-                                <input type="text" placeholder="Appartment, Suite etc.">
-                              </div>                             
-                            </div>
-                            <div class="col-md-6">
-                              <div class="aa-checkout-single-bill">
-                                <input type="text" placeholder="City / Town*">
-                              </div>
-                            </div>
-                          </div>   
-                          <div class="row">
-                            <div class="col-md-6">
-                              <div class="aa-checkout-single-bill">
-                                <input type="text" placeholder="District*">
-                              </div>                             
-                            </div>
-                            <div class="col-md-6">
-                              <div class="aa-checkout-single-bill">
-                                <input type="text" placeholder="Postcode / ZIP*">
-                              </div>
-                            </div>
-                          </div> 
-                           <div class="row">
-                            <div class="col-md-12">
-                              <div class="aa-checkout-single-bill">
-                                <textarea cols="8" rows="3">Special Notes</textarea>
-                              </div>                             
-                            </div>                            
-                          </div>              
-                        </div>
-                      </div>
+                    <div class="aa-prod-quantity">
+                      <form action="">
+                        <select id="" name="">
+                          <option selected="1" value="0">1</option>
+                          <option value="1">2</option>
+                          <option value="2">3</option>
+                          <option value="3">4</option>
+                          <option value="4">5</option>
+                          <option value="5">6</option>
+                        </select>
+                      </form>
+                      <p class="aa-prod-category">
+                        Category: <a href="#"><?php echo $name ?></a>
+                      </p>
+                    </div>
+                    <div class="aa-prod-view-bottom">
+                      <a class="aa-add-to-cart-btn" href="#">Add To Cart</a>
+                      <a class="aa-add-to-cart-btn" href="#">Wishlist</a>
+                      <a class="aa-add-to-cart-btn" href="#">Compare</a>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="col-md-4">
-                <div class="checkout-right">
-                  <h4>Order Summary</h4>
-                  <div class="aa-order-summary-area">
-                    <table class="table table-responsive">
-                      <thead>
-                        <tr>
-                          <th>Product</th>
-                          <th>Total</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>T-Shirt <strong> x  1</strong></td>
-                          <td>$150</td>
-                        </tr>
-                        <tr>
-                          <td>Polo T-Shirt <strong> x  1</strong></td>
-                          <td>$250</td>
-                        </tr>
-                        <tr>
-                          <td>Shoes <strong> x  1</strong></td>
-                          <td>$350</td>
-                        </tr>
-                      </tbody>
-                      <tfoot>
-                        <tr>
-                          <th>Subtotal</th>
-                          <td>$750</td>
-                        </tr>
-                         <tr>
-                          <th>Tax</th>
-                          <td>$35</td>
-                        </tr>
-                         <tr>
-                          <th>Total</th>
-                          <td>$785</td>
-                        </tr>
-                      </tfoot>
-                    </table>
-                  </div>
-                  <h4>Payment Method</h4>
-                  <div class="aa-payment-method">                    
-                    <label for="cashdelivery"><input type="radio" id="cashdelivery" name="optionsRadios"> Cash on Delivery </label>
-                    <label for="paypal"><input type="radio" id="paypal" name="optionsRadios" checked> Via Paypal </label>
-                    <img src="https://www.paypalobjects.com/webstatic/mktg/logo/AM_mc_vs_dc_ae.jpg" border="0" alt="PayPal Acceptance Mark">    
-                    <input type="submit" value="Place Order" class="aa-browse-btn">                
-                  </div>
+              
+            </div>
+            <div class="aa-product-details-bottom">
+              <ul class="nav nav-tabs" id="myTab2">
+                <li><a href="#description" data-toggle="tab">Description</a></li>
+                <li><a href="#review" data-toggle="tab">Reviews</a></li>                
+              </ul>
+
+              <!-- Tab panes -->
+              <div class="tab-content">
+                <div class="tab-pane fade in active" id="description">
+                  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                  <ul>
+                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, culpa!</li>
+                    <li>Lorem ipsum dolor sit amet.</li>
+                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</li>
+                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor qui eius esse!</li>
+                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam, modi!</li>
+                  </ul>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum, iusto earum voluptates autem esse molestiae ipsam, atque quam amet similique ducimus aliquid voluptate perferendis, distinctio!</p>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis ea, voluptas! Aliquam facere quas cumque rerum dolore impedit, dicta ducimus repellat dignissimos, fugiat, minima quaerat necessitatibus? Optio adipisci ab, obcaecati, porro unde accusantium facilis repudiandae.</p>
                 </div>
+                <div class="tab-pane fade " id="review">
+                 <div class="aa-product-review-area">
+                   <h4>2 Reviews for T-Shirt</h4> 
+                   <ul class="aa-review-nav">
+                     <li>
+                        <div class="media">
+                          <div class="media-left">
+                            <a href="#">
+                              <img class="media-object" src="img/testimonial-img-3.jpg" alt="girl image">
+                            </a>
+                          </div>
+                          <div class="media-body">
+                            <h4 class="media-heading"><strong>Marla Jobs</strong> - <span>March 26, 2016</span></h4>
+                            <div class="aa-product-rating">
+                              <span class="fa fa-star"></span>
+                              <span class="fa fa-star"></span>
+                              <span class="fa fa-star"></span>
+                              <span class="fa fa-star"></span>
+                              <span class="fa fa-star-o"></span>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="media">
+                          <div class="media-left">
+                            <a href="#">
+                              <img class="media-object" src="img/testimonial-img-3.jpg" alt="girl image">
+                            </a>
+                          </div>
+                          <div class="media-body">
+                            <h4 class="media-heading"><strong>Marla Jobs</strong> - <span>March 26, 2016</span></h4>
+                            <div class="aa-product-rating">
+                              <span class="fa fa-star"></span>
+                              <span class="fa fa-star"></span>
+                              <span class="fa fa-star"></span>
+                              <span class="fa fa-star"></span>
+                              <span class="fa fa-star-o"></span>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                          </div>
+                        </div>
+                      </li>
+                   </ul>
+                   <h4>Add a review</h4>
+                   <div class="aa-your-rating">
+                     <p>Your Rating</p>
+                     <a href="#"><span class="fa fa-star-o"></span></a>
+                     <a href="#"><span class="fa fa-star-o"></span></a>
+                     <a href="#"><span class="fa fa-star-o"></span></a>
+                     <a href="#"><span class="fa fa-star-o"></span></a>
+                     <a href="#"><span class="fa fa-star-o"></span></a>
+                   </div>
+                   <!-- review form -->
+                   <form action="" class="aa-review-form">
+                      <div class="form-group">
+                        <label for="message">Your Review</label>
+                        <textarea class="form-control" rows="3" id="message"></textarea>
+                      </div>
+                      <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" placeholder="Name">
+                      </div>  
+                      <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="example@gmail.com">
+                      </div>
+
+                      <button type="submit" class="btn btn-default aa-review-submit">Submit</button>
+                   </form>
+                 </div>
+                </div>            
               </div>
             </div>
-          </form>
-         </div>
-       </div>
-     </div>
-   </div>
- </section>
- <!-- / Cart view section -->
+            <!-- Related product -->
+            <div class="aa-product-related-item">
+              <h3>Related Products</h3>
+              <ul class="aa-product-catg aa-related-item-slider">
+                <!-- start single product item -->
+                <?php
+                $sql = "SELECT * FROM products ";
+								        $result = $conn->query($sql);
+                ?>
+                <?php	if ($result->num_rows > 0) : ?>
+							  <?php	while ($row = $result->fetch_assoc()): ?>
+                <?php $oldp=$row["price"]*2; ?>
+                <li>
+                  <figure>
+                    <a class="aa-product-img" href="#"><img src=Admin/<?php echo $row["image"] ?> style="width:250px;height:300px;" alt="polo shirt img"></a>
+                    <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                     <figcaption>
+                      <h4 class="aa-product-title"><a href="#"><?php echo $row["name"] ?></a></h4>
+                      <span class="aa-product-price"><?php echo $row["price"] ?></span><span class="aa-product-price"><del><?php echo $oldp ?></del></span>
+                    </figcaption>
+                  </figure>                     
+                  <div class="aa-product-hvr-content">
+                    <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                    <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
+                    <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                            
+                  </div>
+                  <!-- product badge -->
+                  <span class="aa-badge aa-sale" href="#">SALE!</span>
+                </li>
+                 <!-- start single product item -->
+                 <?php endwhile; ?>
+                  <?php endif; ?>                                                                              
+              </ul>
+              <!-- quick view modal -->                  
+              <div class="modal fade" id="quick-view-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">                      
+                    <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <div class="row">
+                        <!-- Modal view slider -->
+                        <div class="col-md-6 col-sm-6 col-xs-12">                              
+                          <div class="aa-product-view-slider">                                
+                            <div class="simpleLens-gallery-container" id="demo-1">
+                              <div class="simpleLens-container">
+                                  <div class="simpleLens-big-image-container">
+                                      <a class="simpleLens-lens-image" data-lens-image="img/view-slider/large/polo-shirt-1.png">
+                                          <img src="img/view-slider/medium/polo-shirt-1.png" class="simpleLens-big-image">
+                                      </a>
+                                  </div>
+                              </div>
+                              <div class="simpleLens-thumbnails-container">
+                                  <a href="#" class="simpleLens-thumbnail-wrapper"
+                                     data-lens-image="img/view-slider/large/polo-shirt-1.png"
+                                     data-big-image="img/view-slider/medium/polo-shirt-1.png">
+                                      <img src="img/view-slider/thumbnail/polo-shirt-1.png">
+                                  </a>                                    
+                                  <a href="#" class="simpleLens-thumbnail-wrapper"
+                                     data-lens-image="img/view-slider/large/polo-shirt-3.png"
+                                     data-big-image="img/view-slider/medium/polo-shirt-3.png">
+                                      <img src="img/view-slider/thumbnail/polo-shirt-3.png">
+                                  </a>
+
+                                  <a href="#" class="simpleLens-thumbnail-wrapper"
+                                     data-lens-image="img/view-slider/large/polo-shirt-4.png"
+                                     data-big-image="img/view-slider/medium/polo-shirt-4.png">
+                                      <img src="img/view-slider/thumbnail/polo-shirt-4.png">
+                                  </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- Modal view content -->
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <div class="aa-product-view-content">
+                            <h3>T-Shirt</h3>
+                            <div class="aa-price-block">
+                              <span class="aa-product-view-price">$34.99</span>
+                              <p class="aa-product-avilability">Avilability: <span>In stock</span></p>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis animi, veritatis quae repudiandae quod nulla porro quidem, itaque quis quaerat!</p>
+                            <h4>Size</h4>
+                            <div class="aa-prod-view-size">
+                              <a href="#">S</a>
+                              <a href="#">M</a>
+                              <a href="#">L</a>
+                              <a href="#">XL</a>
+                            </div>
+                            <div class="aa-prod-quantity">
+                              <form action="">
+                                <select name="" id="">
+                                  <option value="0" selected="1">1</option>
+                                  <option value="1">2</option>
+                                  <option value="2">3</option>
+                                  <option value="3">4</option>
+                                  <option value="4">5</option>
+                                  <option value="5">6</option>
+                                </select>
+                              </form>
+                              <p class="aa-prod-category">
+                                Category: <a href="#">Polo T-Shirt</a>
+                              </p>
+                            </div>
+                            <div class="aa-prod-view-bottom">
+                              <a href="#" class="aa-add-to-cart-btn"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                              <a href="#" class="aa-add-to-cart-btn">View Details</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>                        
+                  </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+              </div>
+              <!-- / quick view modal -->   
+            </div>  
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- / product category -->
+
+
+  <!-- Subscribe section -->
+  <section id="aa-subscribe">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="aa-subscribe-area">
+            <h3>Subscribe our newsletter </h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex, velit!</p>
+            <form action="" class="aa-subscribe-form">
+              <input type="email" name="" id="" placeholder="Enter your Email">
+              <input type="submit" value="Subscribe">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- / Subscribe section -->
 
   <!-- footer -->  
   <footer id="aa-footer">
@@ -772,26 +799,27 @@
   </div>
 
 
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.js"></script>  
-    <!-- SmartMenus jQuery plugin -->
-    <script type="text/javascript" src="js/jquery.smartmenus.js"></script>
-    <!-- SmartMenus jQuery Bootstrap Addon -->
-    <script type="text/javascript" src="js/jquery.smartmenus.bootstrap.js"></script>  
-    <!-- To Slider JS -->
-    <script src="js/sequence.js"></script>
-    <script src="js/sequence-theme.modern-slide-in.js"></script>  
-    <!-- Product view slider -->
-    <script type="text/javascript" src="js/jquery.simpleGallery.js"></script>
-    <script type="text/javascript" src="js/jquery.simpleLens.js"></script>
-    <!-- slick slider -->
-    <script type="text/javascript" src="js/slick.js"></script>
-    <!-- Price picker slider -->
-    <script type="text/javascript" src="js/nouislider.js"></script>
-    <!-- Custom js -->
-    <script src="js/custom.js"></script> 
     
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="js/bootstrap.js"></script>  
+  <!-- SmartMenus jQuery plugin -->
+  <script type="text/javascript" src="js/jquery.smartmenus.js"></script>
+  <!-- SmartMenus jQuery Bootstrap Addon -->
+  <script type="text/javascript" src="js/jquery.smartmenus.bootstrap.js"></script>  
+  <!-- To Slider JS -->
+  <script src="js/sequence.js"></script>
+  <script src="js/sequence-theme.modern-slide-in.js"></script>  
+  <!-- Product view slider -->
+  <script type="text/javascript" src="js/jquery.simpleGallery.js"></script>
+  <script type="text/javascript" src="js/jquery.simpleLens.js"></script>
+  <!-- slick slider -->
+  <script type="text/javascript" src="js/slick.js"></script>
+  <!-- Price picker slider -->
+  <script type="text/javascript" src="js/nouislider.js"></script>
+  <!-- Custom js -->
+  <script src="js/custom.js"></script> 
+
   </body>
 </html>
